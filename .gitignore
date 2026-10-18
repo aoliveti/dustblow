@@ -1,0 +1,58 @@
+# Compiled binaries and build artifacts
+/bin/
+/dist/
+/dustblow
+*.exe
+*.out
+*.app
+
+# Go test, coverage, and profiling artifacts
+*.test
+*.prof
+coverage.txt
+coverage.html
+
+# ROMs, local saves, and screenshots
+roms/
+*.nes
+*.sav
+*.state*
+
+# Go workspace files
+go.work
+go.work.sum
+
+# JetBrains IDEs (IntelliJ IDEA, GoLand, Fleet)
+.idea/
+.fleet/
+*.iml
+*.ipr
+*.iws
+out/
+cmake-build-*/
+
+# VS Code, Cursor, Zed, and other editors
+.vscode/
+.cursor/
+.zed/
+.history/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+
+# Vim / Emacs swap and backup files
+*.swp
+*.swo
+*.swn
+*~
+.#*
+\#*#
+
+# macOS and OS metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Local agent instructions
+AGENTS.md

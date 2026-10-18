@@ -1,0 +1,132 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build (${{ matrix.os_name }}-${{ matrix.goarch }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-latest
+            os_name: darwin
+            goos: darwin
+            goarch: arm64
+            archive: tar.gz
+          - runner: macos-latest
+            os_name: darwin
+            goos: darwin
+            goarch: amd64
+            archive: tar.gz
+          - runner: ubuntu-latest
+            os_name: linux
+            goos: linux
+            goarch: amd64
+            archive: tar.gz
+          - runner: ubuntu-24.04-arm
+            os_name: linux
+            goos: linux
+            goarch: arm64
+            archive: tar.gz
+          - runner: windows-latest
+            os_name: windows
+            goos: windows
+            goarch: amd64
+            archive: zip
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Linux system dependencies (Ebitengine X11 & ALSA)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libc6-dev \
+            libgl1-mesa-dev \
+            libxcursor-dev \
+            libxi-dev \
+            libxinerama-dev \
+            libxrandr-dev \
+            libxxf86vm-dev \
+            libasound2-dev \
+            pkg-config
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Build & package (Unix)
+        if: runner.os != 'Windows'
+        env:
+          CGO_ENABLED: "1"
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: |
+          VERSION="${GITHUB_REF_NAME:-dev}"
+          STAGE_DIR="dustblow-${VERSION}-${{ matrix.os_name }}-${{ matrix.goarch }}"
+          mkdir -p "dist/${STAGE_DIR}"
+          go build -trimpath -ldflags="-s -w" -o "dist/${STAGE_DIR}/dustblow" ./cmd/dustblow
+          cp LICENSE README.md "dist/${STAGE_DIR}/"
+          tar -C dist -czf "dist/${STAGE_DIR}.tar.gz" "${STAGE_DIR}"
+
+      - name: Build & package (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          CGO_ENABLED: "0"
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: |
+          $Version = if ($env:GITHUB_REF_NAME) { $env:GITHUB_REF_NAME } else { "dev" }
+          $StageDir = "dustblow-$Version-${{ matrix.os_name }}-${{ matrix.goarch }}"
+          New-Item -ItemType Directory -Force -Path "dist/$StageDir" | Out-Null
+          go build -trimpath -ldflags="-s -w" -o "dist/$StageDir/dustblow.exe" ./cmd/dustblow
+          Copy-Item LICENSE, README.md -Destination "dist/$StageDir/"
+          Compress-Archive -Path "dist/$StageDir" -DestinationPath "dist/$StageDir.zip"
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: asset-${{ matrix.os_name }}-${{ matrix.goarch }}
+          path: |
+            dist/*.tar.gz
+            dist/*.zip
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Generate SHA-256 checksums
+        working-directory: artifacts
+        run: sha256sum * > checksums.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            artifacts/*.tar.gz
+            artifacts/*.zip
+            artifacts/checksums.txt

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="128" height="128" fill="none">
+  <!-- Minimalist Dark Squircle Canvas -->
+  <rect x="8" y="8" width="144" height="144" rx="34" fill="#14161E"/>
+
+  <!-- D-Pad Cross (Single Pure Filled Shape) -->
+  <path d="M43 56H53C54.6569 56 56 57.3431 56 59V72H69C70.6569 72 72 73.3431 72 75V85C72 86.6569 70.6569 88 69 88H56V101C56 102.657 54.6569 104 53 104H43C41.3431 104 40 102.657 40 101V88H27C25.3431 88 24 86.6569 24 85V75C24 73.3431 25.3431 72 27 72H40V59C40 57.3431 41.3431 56 43 56Z"
+        fill="#F5F7FC"/>
+
+  <!-- NES B & A Red Buttons -->
+  <circle cx="94" cy="84" r="12" fill="#E63946"/>
+  <circle cx="124" cy="84" r="12" fill="#E63946"/>
+</svg>
