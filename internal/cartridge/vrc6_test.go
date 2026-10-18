@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func createTestVRC6Cartridge(prgBanks8K int, chrBanks1K int, mapperID byte) *Cartridge {
+func createTestVRC6Cartridge(prgBanks8K, chrBanks1K int, mapperID byte) *Cartridge {
 	prg := make([]byte, prgBanks8K*vrc6PRGBank8KSize)
 	for b := range prgBanks8K {
 		for i := range vrc6PRGBank8KSize {

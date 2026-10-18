@@ -203,15 +203,7 @@ func (b *Bus) Read(addr uint16) byte {
 		if b.ioAccessHook != nil {
 			b.ioAccessHook(addr, false)
 		}
-		if b.ppu != nil {
-			b.dataBus = b.ppu.ReadRegister(addr & PPURegistersMirrorMask)
-			b.internalDataBus = b.dataBus
-			if b.cartridge != nil {
-				b.cartridge.OpenBus = b.dataBus
-			}
-			return b.dataBus
-		}
-		return 0
+		return b.readPPURegister(addr, true)
 	}
 
 	if addr <= APURegistersEnd {
@@ -236,6 +228,20 @@ func (b *Bus) Read(addr uint16) byte {
 	}
 
 	b.internalDataBus = b.dataBus
+	return b.dataBus
+}
+
+func (b *Bus) readPPURegister(addr uint16, updateInternalBus bool) byte {
+	if b.ppu == nil {
+		return 0
+	}
+	b.dataBus = b.ppu.ReadRegister(addr & PPURegistersMirrorMask)
+	if updateInternalBus {
+		b.internalDataBus = b.dataBus
+	}
+	if b.cartridge != nil {
+		b.cartridge.OpenBus = b.dataBus
+	}
 	return b.dataBus
 }
 
@@ -284,14 +290,7 @@ func (b *Bus) ReadDMC(addr uint16) byte {
 	}
 
 	if addr <= PPURegistersEnd {
-		if b.ppu != nil {
-			b.dataBus = b.ppu.ReadRegister(addr & PPURegistersMirrorMask)
-			if b.cartridge != nil {
-				b.cartridge.OpenBus = b.dataBus
-			}
-			return b.dataBus
-		}
-		return 0
+		return b.readPPURegister(addr, false)
 	}
 
 	if addr <= APURegistersEnd {

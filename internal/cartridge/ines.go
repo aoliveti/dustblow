@@ -173,50 +173,56 @@ func New(r io.Reader) (*Cartridge, error) {
 		Hash:       hex.EncodeToString(hasher.Sum(nil)),
 	}
 
-	var mapper Mapper
-	switch mapperID {
-	case mapperNROM:
-		mapper = NewMapper0(cart)
-	case mapperMMC1:
-		mapper = NewMapper1(cart)
-	case mapperUxROM:
-		mapper = NewMapper2(cart)
-	case mapperCNROM:
-		mapper = NewMapper3(cart)
-	case mapperMMC3:
-		mapper = NewMapper4(cart)
-	case mapperMMC5:
-		mapper = NewMapper5(cart)
-	case mapperAxROM:
-		mapper = NewMapper7(cart)
-	case mapperMMC2:
-		mapper = NewMapper9(cart)
-	case mapperMMC4:
-		mapper = NewMapper10(cart)
-	case mapperBandai16, mapperBandai153, mapperBandai159:
-		mapper = NewMapperBandai(cart, mapperID)
-	case mapperNamco163:
-		mapper = NewMapper19(cart)
-	case mapperVRC4a4c, mapperVRC2a, mapperVRC2b4e, mapperVRC2c4b:
-		mapper = NewMapperVRC(cart, mapperID, submapper)
-	case mapperVRC6a, mapperVRC6b:
-		mapper = NewMapperVRC6(cart, mapperID)
-	case mapperBNROM:
-		mapper = NewMapper34(cart)
-	case mapperSMB2J:
-		mapper = NewMapper40(cart)
-	case mapperGxROM:
-		mapper = NewMapper66(cart)
-	case mapperFME7:
-		mapper = NewMapper69(cart)
-	case mapperCamerica:
-		mapper = NewMapper71(cart)
-	default:
-		return nil, fmt.Errorf("%w: %d", ErrUnsupportedMapper, mapperID)
+	mapper, err := newMapper(cart)
+	if err != nil {
+		return nil, err
 	}
 
 	cart.BindMapper(mapper)
 	return cart, nil
+}
+
+func newMapper(cart *Cartridge) (Mapper, error) {
+	switch cart.MapperID {
+	case mapperNROM:
+		return NewMapper0(cart), nil
+	case mapperMMC1:
+		return NewMapper1(cart), nil
+	case mapperUxROM:
+		return NewMapper2(cart), nil
+	case mapperCNROM:
+		return NewMapper3(cart), nil
+	case mapperMMC3:
+		return NewMapper4(cart), nil
+	case mapperMMC5:
+		return NewMapper5(cart), nil
+	case mapperAxROM:
+		return NewMapper7(cart), nil
+	case mapperMMC2:
+		return NewMapper9(cart), nil
+	case mapperMMC4:
+		return NewMapper10(cart), nil
+	case mapperBandai16, mapperBandai153, mapperBandai159:
+		return NewMapperBandai(cart, cart.MapperID), nil
+	case mapperNamco163:
+		return NewMapper19(cart), nil
+	case mapperVRC4a4c, mapperVRC2a, mapperVRC2b4e, mapperVRC2c4b:
+		return NewMapperVRC(cart, cart.MapperID, cart.Submapper), nil
+	case mapperVRC6a, mapperVRC6b:
+		return NewMapperVRC6(cart, cart.MapperID), nil
+	case mapperBNROM:
+		return NewMapper34(cart), nil
+	case mapperSMB2J:
+		return NewMapper40(cart), nil
+	case mapperGxROM:
+		return NewMapper66(cart), nil
+	case mapperFME7:
+		return NewMapper69(cart), nil
+	case mapperCamerica:
+		return NewMapper71(cart), nil
+	default:
+		return nil, fmt.Errorf("%w: %d", ErrUnsupportedMapper, cart.MapperID)
+	}
 }
 
 func parseMirroring(hwConfig byte) Mirroring {

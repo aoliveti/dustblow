@@ -155,7 +155,7 @@ func pollRawGamepadButtons(id ebiten.GamepadID) byte {
 	return mask
 }
 
-func isRawButtonPressed(id ebiten.GamepadID, btn int, count int) bool {
+func isRawButtonPressed(id ebiten.GamepadID, btn, count int) bool {
 	return btn < count && ebiten.IsGamepadButtonPressed(id, ebiten.GamepadButton(btn))
 }
 

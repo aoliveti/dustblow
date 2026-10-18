@@ -610,7 +610,7 @@ func (g *Game) handleScreenshot(screen *ebiten.Image, vp view.Viewport) {
 // On macOS Retina displays, it accounts for the Retina device scale factor so that
 // rendering shaders and screenshots operate at true physical display resolution.
 // On other platforms and non-Retina displays, it remains 1:1.
-func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
+func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
 	scale := displayScale()
 	return int(float64(outsideWidth) * scale), int(float64(outsideHeight) * scale)
 }

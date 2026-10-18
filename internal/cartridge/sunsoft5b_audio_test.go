@@ -39,7 +39,7 @@ const (
 	envPrescalerStepClocks = 256
 )
 
-func writeAudioReg(audio *cartridge.Sunsoft5BAudio, reg byte, val byte) {
+func writeAudioReg(audio *cartridge.Sunsoft5BAudio, reg, val byte) {
 	audio.SelectRegister(reg)
 	audio.WriteData(val)
 }

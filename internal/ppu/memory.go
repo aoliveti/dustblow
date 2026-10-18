@@ -131,7 +131,7 @@ func (p *PPU) PeekVRAM(addr uint16) byte {
 }
 
 // WriteOAM writes a byte to the internal 256-byte OAM memory at the given address.
-func (p *PPU) WriteOAM(addr byte, val byte) {
+func (p *PPU) WriteOAM(addr, val byte) {
 	p.oam[addr] = val
 }
 

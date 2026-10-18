@@ -1,4 +1,4 @@
-version: 2
+version: "2"
 
 run:
   timeout: 5m
@@ -33,40 +33,38 @@ linters:
     - unconvert
     - unparam
     - unused
-
-linters-settings:
-  nestif:
-    min-complexity: 3
-  gocognit:
-    min-complexity: 30
-  gocyclo:
-    min-complexity: 25
-  errorlint:
-    errorf: true
-    asserts: true
-    comparison: true
-  testifylint:
-    enable-all: true
-  sloglint:
-    static-msg: true
-    no-mixed-args: true
-  gocritic:
-    enabled-tags:
-      - diagnostic
-      - style
-      - performance
-    disabled-checks:
-      - hugeParam
-  govet:
-    enable-all: true
-    disable:
-      - fieldalignment
-      - shadow
-
-issues:
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - gocognit
-        - gocyclo
-        - errcheck
+  settings:
+    nestif:
+      min-complexity: 3
+    gocognit:
+      min-complexity: 30
+    gocyclo:
+      min-complexity: 25
+    errorlint:
+      errorf: true
+      asserts: true
+      comparison: true
+    testifylint:
+      enable-all: true
+    sloglint:
+      static-msg: true
+      no-mixed-args: true
+    gocritic:
+      enabled-tags:
+        - diagnostic
+        - style
+        - performance
+      disabled-checks:
+        - hugeParam
+    govet:
+      enable-all: true
+      disable:
+        - fieldalignment
+        - shadow
+  exclusions:
+    rules:
+      - path: _test\.go
+        linters:
+          - gocognit
+          - gocyclo
+          - errcheck

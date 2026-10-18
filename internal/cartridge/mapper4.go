@@ -153,19 +153,19 @@ func (m *Mapper4) handleBankSelectWrite(isOdd bool, data byte) {
 }
 
 func (m *Mapper4) handleMirroringAndRAMWrite(isOdd bool, data byte) {
-	if !isOdd {
-		if m.cartridge.Mirroring != MirrorFourScreen {
-			if (data & mmc3MirroringMask) == mmc3MirroringVertical {
-				m.cartridge.Mirroring = MirrorVertical
-				return
-			}
-			m.cartridge.Mirroring = MirrorHorizontal
-		}
+	if isOdd {
+		m.ramEnabled = (data & mmc3RAMEnableMask) != 0
+		m.ramWriteProtect = (data & mmc3RAMWriteProtectMask) != 0
 		return
 	}
-
-	m.ramEnabled = (data & mmc3RAMEnableMask) != 0
-	m.ramWriteProtect = (data & mmc3RAMWriteProtectMask) != 0
+	if m.cartridge.Mirroring == MirrorFourScreen {
+		return
+	}
+	if (data & mmc3MirroringMask) == mmc3MirroringVertical {
+		m.cartridge.Mirroring = MirrorVertical
+		return
+	}
+	m.cartridge.Mirroring = MirrorHorizontal
 }
 
 func (m *Mapper4) handleIRQCounterWrite(isOdd bool, data byte) {

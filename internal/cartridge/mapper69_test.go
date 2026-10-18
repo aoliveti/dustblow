@@ -47,7 +47,7 @@ func createTestFME7Cartridge(t *testing.T) (*cartridge.Cartridge, cartridge.Mapp
 	return cart, mapper
 }
 
-func writeFME7Command(mapper cartridge.Mapper, cmd byte, data byte) {
+func writeFME7Command(mapper cartridge.Mapper, cmd, data byte) {
 	mapper.WritePRG(addrFME7RegCommand, cmd)
 	mapper.WritePRG(addrFME7RegData, data)
 }

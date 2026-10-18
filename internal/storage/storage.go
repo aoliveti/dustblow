@@ -290,12 +290,10 @@ func (s *Store) SaveScreenshot(gameTitle string, img image.Image) (string, error
 		cleanFullPath := filepath.Clean(fullPath)
 		f, err := os.OpenFile(cleanFullPath, os.O_WRONLY|os.O_CREATE|os.O_EXCL, PermFile)
 		if err == nil {
-			defer func() {
-				_ = f.Close()
-			}()
-
-			if err := png.Encode(f, img); err != nil {
-				return "", fmt.Errorf("encode screenshot png: %w", err)
+			encodeErr := png.Encode(f, img)
+			_ = f.Close()
+			if encodeErr != nil {
+				return "", fmt.Errorf("encode screenshot png: %w", encodeErr)
 			}
 			break
 		}

@@ -99,7 +99,7 @@ type MapperVRC struct {
 }
 
 // NewMapperVRC constructs a new Konami VRC2/VRC4 mapper instance.
-func NewMapperVRC(cart *Cartridge, mapperID byte, submapper byte) *MapperVRC {
+func NewMapperVRC(cart *Cartridge, mapperID, submapper byte) *MapperVRC {
 	prgBanks := max(len(cart.PRG)/vrcPRGBankSize8K, minVRCPRGBanks8K)
 	chrBanks := max(len(cart.CHR)/vrcCHRBankSize1K, minVRCCHRBanks1K)
 
@@ -126,7 +126,7 @@ func NewMapperVRC(cart *Cartridge, mapperID byte, submapper byte) *MapperVRC {
 	return m
 }
 
-func (m *MapperVRC) configureVariant(mapperID byte, submapper byte) {
+func (m *MapperVRC) configureVariant(mapperID, submapper byte) {
 	switch mapperID {
 	case mapperVRC4a4c:
 		m.configureVRC4a4c(submapper)
@@ -333,7 +333,7 @@ func (m *MapperVRC) writeRegister(addr uint16, data byte) {
 	}
 }
 
-func (m *MapperVRC) writeIRQ(reg byte, data byte) {
+func (m *MapperVRC) writeIRQ(reg, data byte) {
 	switch reg {
 	case 0:
 		m.irqLatch = (m.irqLatch & 0xF0) | (data & 0x0F)

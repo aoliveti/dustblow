@@ -50,7 +50,7 @@ func Fragment(dstPos vec4, srcPos vec2, color vec4) vec4 {
 }
 `
 
-func compileShaders() (*ebiten.Shader, *ebiten.Shader, error) {
+func compileShaders() (sharpShader, crtShader *ebiten.Shader, err error) {
 	sharp, err := ebiten.NewShader([]byte(sharpBilinearSrc))
 	if err != nil {
 		return nil, nil, fmt.Errorf("compile sharp bilinear shader: %w", err)

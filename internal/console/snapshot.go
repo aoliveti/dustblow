@@ -366,15 +366,16 @@ func (c *Console) loadCartridge(r io.Reader) error {
 		}
 		return fmt.Errorf("%w: read mapper len: %w", ErrInvalidSnapshot, err)
 	}
-	if mapperLen > 0 {
-		mapperData := make([]byte, mapperLen)
-		if err := binary.Read(r, binary.LittleEndian, mapperData); err != nil {
-			return fmt.Errorf("%w: read mapper data: %w", ErrInvalidSnapshot, err)
-		}
-		if c.Cartridge != nil {
-			if err := c.Cartridge.LoadState(bytes.NewReader(mapperData)); err != nil {
-				return fmt.Errorf("%w: restore mapper state: %w", ErrInvalidSnapshot, err)
-			}
+	if mapperLen == 0 {
+		return nil
+	}
+	mapperData := make([]byte, mapperLen)
+	if err := binary.Read(r, binary.LittleEndian, mapperData); err != nil {
+		return fmt.Errorf("%w: read mapper data: %w", ErrInvalidSnapshot, err)
+	}
+	if c.Cartridge != nil {
+		if err := c.Cartridge.LoadState(bytes.NewReader(mapperData)); err != nil {
+			return fmt.Errorf("%w: restore mapper state: %w", ErrInvalidSnapshot, err)
 		}
 	}
 	return nil
