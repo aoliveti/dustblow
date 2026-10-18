@@ -276,17 +276,16 @@ func (p *PPU) readOAMData() byte {
 			return 0xFF
 		}
 		if p.cycle >= cycleSpriteEvalStart && p.cycle < cycleSpriteFetchStart {
-			evalAddr := byte(p.cycle - cycleSpriteEvalStart)
-			val := p.oam[evalAddr]
-			if (evalAddr & maskOAMEntryByte) == oamOffsetAttr {
-				val &= maskOAMAttrRead
-			}
-			return val
+			return p.readOAMByte(byte(p.cycle - cycleSpriteEvalStart))
 		}
 	}
 
-	val := p.oam[p.oamAddr]
-	if (p.oamAddr & maskOAMEntryByte) == oamOffsetAttr {
+	return p.readOAMByte(p.oamAddr)
+}
+
+func (p *PPU) readOAMByte(addr byte) byte {
+	val := p.oam[addr]
+	if (addr & maskOAMEntryByte) == oamOffsetAttr {
 		val &= maskOAMAttrRead
 	}
 	return val

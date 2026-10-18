@@ -145,7 +145,7 @@ func (m *Mapper1) WritePRG(addr uint16, data byte) {
 	m.updateOffsets()
 }
 
-func (m *Mapper1) applyRegisterWrite(reg byte, value byte) {
+func (m *Mapper1) applyRegisterWrite(reg, value byte) {
 	switch reg {
 	case 0:
 		m.control = value

@@ -25,9 +25,9 @@ const (
 	sampleSnapshotByte99 = 0x99
 )
 
-func newTestStorage(t *testing.T) (*storage.Store, string) {
+func newTestStorage(t *testing.T) (store *storage.Store, dir string) {
 	t.Helper()
-	dir := t.TempDir()
+	dir = t.TempDir()
 	discardLogger := slog.New(slog.DiscardHandler)
 	store, err := storage.New(dir, storage.WithLogger(discardLogger))
 	require.NoError(t, err)

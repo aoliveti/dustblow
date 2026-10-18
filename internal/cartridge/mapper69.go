@@ -173,7 +173,7 @@ func (m *Mapper69) WritePRG(addr uint16, data byte) {
 	}
 }
 
-func (m *Mapper69) writeRegister(cmd byte, data byte) {
+func (m *Mapper69) writeRegister(cmd, data byte) {
 	switch {
 	case cmd <= mmc69CmdCHR7:
 		bank := int(data) % m.chrBanks1K

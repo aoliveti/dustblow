@@ -262,22 +262,26 @@ func (p *PPU) handleSpriteEvaluation(isRenderLine, renderingEnabled bool) {
 	}
 
 	if p.cycle >= cycleSpriteFetchStart && p.cycle <= cycleSpriteFetchEnd {
-		offset := (p.cycle - cycleSpriteFetchStart) % spriteFetchSlotCycles
-		if offset == spriteFetchSlotOffset {
-			idx := (p.cycle - cycleSpriteFetchStart) / spriteFetchSlotCycles
-			if idx < p.secondaryCount {
-				p.fetchSecondarySprite(idx)
-			}
-		}
-		if p.cycle == cycleSpriteFetchEnd {
-			p.scanlineSprites = p.nextScanlineSprites
-			p.scanlineSpriteCount = p.nextScanlineCount
-		}
+		p.stepSpriteFetchPhase()
 	}
 
 	if p.spriteOverflowPending && p.cycle >= p.spriteOverflowCycle {
 		p.status |= FlagStatusSpriteOverflow
 		p.spriteOverflowPending = false
+	}
+}
+
+func (p *PPU) stepSpriteFetchPhase() {
+	offset := (p.cycle - cycleSpriteFetchStart) % spriteFetchSlotCycles
+	if offset == spriteFetchSlotOffset {
+		idx := (p.cycle - cycleSpriteFetchStart) / spriteFetchSlotCycles
+		if idx < p.secondaryCount {
+			p.fetchSecondarySprite(idx)
+		}
+	}
+	if p.cycle == cycleSpriteFetchEnd {
+		p.scanlineSprites = p.nextScanlineSprites
+		p.scanlineSpriteCount = p.nextScanlineCount
 	}
 }
 

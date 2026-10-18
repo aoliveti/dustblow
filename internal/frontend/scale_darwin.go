@@ -38,16 +38,7 @@ func initCocoaScale() {
 func displayScale() float64 {
 	cocoaScaleOnce.Do(initCocoaScale)
 
-	var screen objc.ID
-	if classNSApplication != 0 {
-		app := objc.ID(classNSApplication).Send(selSharedApplication)
-		if app != 0 {
-			win := app.Send(selMainWindow)
-			if win != 0 {
-				screen = win.Send(selScreen)
-			}
-		}
-	}
+	screen := activeWindowScreen()
 	if screen == 0 && classNSScreen != 0 {
 		screen = objc.ID(classNSScreen).Send(selMainScreen)
 	}
@@ -62,4 +53,19 @@ func displayScale() float64 {
 	}
 
 	return defaultDisplayScale
+}
+
+func activeWindowScreen() objc.ID {
+	if classNSApplication == 0 {
+		return 0
+	}
+	app := objc.ID(classNSApplication).Send(selSharedApplication)
+	if app == 0 {
+		return 0
+	}
+	win := app.Send(selMainWindow)
+	if win == 0 {
+		return 0
+	}
+	return win.Send(selScreen)
 }

@@ -234,7 +234,7 @@ func (p *PPU) renderPixel() {
 // sampleBackgroundPixel extracts the 2-bit color index and 2-bit palette attribute for coordinate x
 // using fine X scroll from the 16-bit pattern and attribute shift registers.
 // Returns (0, 0) if background rendering is disabled, clipped in the leftmost 8 pixels, or transparent.
-func (p *PPU) sampleBackgroundPixel(x int) (pixel byte, palette byte) {
+func (p *PPU) sampleBackgroundPixel(x int) (pixel, palette byte) {
 	if (p.mask & FlagMaskShowBG) == 0 {
 		return colorTransparent, 0
 	}
@@ -259,7 +259,7 @@ func (p *PPU) sampleBackgroundPixel(x int) (pixel byte, palette byte) {
 // sampleSpritePixel iterates over the secondary OAM sprite buffer for the active scanline from lowest
 // to highest OAM index. Lower OAM indices take visual priority over higher indices.
 // Respects horizontal flip (bit 6) by flipping the bit sampling direction.
-func (p *PPU) sampleSpritePixel(x int) (pixel byte, palette byte, priority byte, isSprite0 bool) {
+func (p *PPU) sampleSpritePixel(x int) (pixel, palette, priority byte, isSprite0 bool) {
 	if (p.mask & FlagMaskShowSprites) == 0 {
 		return colorTransparent, 0, 0, false
 	}
@@ -498,7 +498,7 @@ func (p *PPU) sprite8x16TileAddr(tile byte, row int) uint16 {
 // - Tile byte bit 0 selects pattern table ($0000 if 0, $1000 if 1).
 // - Tile byte bits 7-1 select the consecutive tile pair (top tile even, bottom tile odd).
 // Inverts the row offset if vertical flip (attribute bit 7) is enabled.
-func (p *PPU) fetchSpriteTilePattern(tile, attr byte, row, height int) (byte, byte) {
+func (p *PPU) fetchSpriteTilePattern(tile, attr byte, row, height int) (patternLo, patternHi byte) {
 	effectiveRow := flipSpriteRow(row, height, attr)
 	tileAddr := p.sprite8x8TileAddr(tile, effectiveRow)
 	if height != spriteSize8x8Height {

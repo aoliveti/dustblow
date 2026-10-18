@@ -47,7 +47,7 @@ func (a *Namco163Audio) ReadRAM(addr byte) byte {
 }
 
 // WriteRAM writes a byte to the internal 128-byte sound RAM.
-func (a *Namco163Audio) WriteRAM(addr byte, val byte) {
+func (a *Namco163Audio) WriteRAM(addr, val byte) {
 	a.ram[addr&0x7F] = val
 }
 

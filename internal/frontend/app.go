@@ -43,15 +43,17 @@ func NewGameFromROM(romPath string) (*Game, error) {
 	}
 
 	store, err := storage.New("")
-	if err == nil {
-		gameDir := store.GameDir(title, cart.Hash)
-		game.SetStorage(store, gameDir)
+	if err != nil {
+		return game, nil
+	}
 
-		if cart.HasBattery {
-			sram, loadErr := store.LoadBattery(gameDir)
-			if loadErr == nil && len(sram) > 0 {
-				cart.LoadBatterySRAM(sram)
-			}
+	gameDir := store.GameDir(title, cart.Hash)
+	game.SetStorage(store, gameDir)
+
+	if cart.HasBattery {
+		sram, loadErr := store.LoadBattery(gameDir)
+		if loadErr == nil && len(sram) > 0 {
+			cart.LoadBatterySRAM(sram)
 		}
 	}
 

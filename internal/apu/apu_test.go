@@ -249,9 +249,9 @@ func TestDMC_DirectLoadAndDMA(t *testing.T) {
 	dmc.WriteDirectLoad(64)
 	assert.Equal(t, byte(64), dmc.Output())
 
-	// Configure sample address $C000 ($4012) and length 2 bytes ($4013)
-	dmc.WriteSampleAddress(0) // 0xC000 + (0 << 6) = 0xC000
-	dmc.WriteSampleLength(0)  // (0 << 4) + 1 = 1 byte
+	// Configure sample address $C000 ($4012) and length 1 byte ($4013)
+	dmc.WriteSampleAddress(0) // maps index 0 to $C000
+	dmc.WriteSampleLength(0)  // maps length 0 to 1 byte
 	assert.Equal(t, uint16(0xC000), dmc.sampleAddress)
 	assert.Equal(t, uint16(1), dmc.sampleLength)
 

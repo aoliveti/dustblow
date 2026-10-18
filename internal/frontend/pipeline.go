@@ -143,7 +143,7 @@ func (p *Pipeline) drawShader(screen *ebiten.Image, shader *ebiten.Shader, src *
 	screen.DrawRectShader(srcW, srcH, shader, &p.drawOptions)
 }
 
-func (p *Pipeline) drawPixelPerfect(screen *ebiten.Image, src *ebiten.Image, vp view.Viewport, scaleX, scaleY float64) {
+func (p *Pipeline) drawPixelPerfect(screen, src *ebiten.Image, vp view.Viewport, scaleX, scaleY float64) {
 	bounds := src.Bounds()
 	p.imageOptions.GeoM.Reset()
 	p.imageOptions.GeoM.Translate(-float64(bounds.Min.X), -float64(bounds.Min.Y))

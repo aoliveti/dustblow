@@ -130,7 +130,7 @@ func newTestCartridge(mirroring cartridge.Mirroring) *cartridge.Cartridge {
 	return cart
 }
 
-func setTestSprite(p *ppu.PPU, index byte, y, tile, attr, x byte) {
+func setTestSprite(p *ppu.PPU, index, y, tile, attr, x byte) {
 	base := index * oamBytesPerEntry
 	p.WriteOAM(base, y)
 	p.WriteOAM(base+1, tile)

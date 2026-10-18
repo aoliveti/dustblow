@@ -236,7 +236,7 @@ func (m *MapperVRC6) handleBankingStyle(data byte) {
 	}
 }
 
-func (m *MapperVRC6) handleIRQWrite(reg byte, data byte) {
+func (m *MapperVRC6) handleIRQWrite(reg, data byte) {
 	switch reg {
 	case 0:
 		m.irqLatch = data
