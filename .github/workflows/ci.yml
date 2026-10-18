@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install Linux system dependencies (Ebitengine X11 & ALSA)
         if: runner.os == 'Linux'
@@ -39,16 +39,16 @@ jobs:
             pkg-config
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
           cache: true
 
       - name: Run golangci-lint
         if: runner.os == 'Linux'
-        uses: golangci/golangci-lint-action@v6
+        uses: golangci/golangci-lint-action@v9
         with:
-          version: latest
+          version: v2.15.0
 
       - name: Run tests with race detector
         run: go test -count=1 -race ./...
