@@ -7,14 +7,14 @@
 package console
 
 import (
-	"github.com/dustblow/dustblow/internal/apu"
+	"github.com/aoliveti/dustblow/internal/apu"
 
 
-	"github.com/dustblow/dustblow/internal/bus"
-	"github.com/dustblow/dustblow/internal/cartridge"
-	"github.com/dustblow/dustblow/internal/cpu"
-	"github.com/dustblow/dustblow/internal/joypad"
-	"github.com/dustblow/dustblow/internal/ppu"
+	"github.com/aoliveti/dustblow/internal/bus"
+	"github.com/aoliveti/dustblow/internal/cartridge"
+	"github.com/aoliveti/dustblow/internal/cpu"
+	"github.com/aoliveti/dustblow/internal/joypad"
+	"github.com/aoliveti/dustblow/internal/ppu"
 )
 
 const (

@@ -1,4 +1,4 @@
-module github.com/dustblow/dustblow
+module github.com/aoliveti/dustblow
 
 go 1.27.0
 

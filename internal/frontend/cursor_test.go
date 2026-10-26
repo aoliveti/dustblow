@@ -7,7 +7,7 @@ package frontend_test
 import (
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/frontend"
+	"github.com/aoliveti/dustblow/internal/frontend"
 	"github.com/stretchr/testify/assert"
 )
 

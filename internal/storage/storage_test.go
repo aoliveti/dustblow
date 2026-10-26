@@ -14,7 +14,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/storage"
+	"github.com/aoliveti/dustblow/internal/storage"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

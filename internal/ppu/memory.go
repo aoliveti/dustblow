@@ -4,7 +4,7 @@
 
 package ppu
 
-import "github.com/dustblow/dustblow/internal/cartridge"
+import "github.com/aoliveti/dustblow/internal/cartridge"
 
 const (
 	// VRAMSize is the physical capacity of the console's internal video RAM (2048 bytes).

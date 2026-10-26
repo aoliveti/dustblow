@@ -39,13 +39,13 @@ It also emulates the extra sound chips found inside Japanese Famicom cartridges,
 
 Player 1 always responds to both keyboard layouts and the primary gamepad at the same time.
 
-| NES Button | Keyboard | Laptop alias | Gamepad |
-|:----------:|:--------:|:------------:|:-------:|
-| **D-Pad** | `Arrows` | `W` `A` `S` `D` | D-Pad |
-| **B** *(Run / Attack)* | `Z` | `J` | South (`B` / `Cross`) or West (`Y` / `Square`) |
-| **A** *(Jump / Confirm)* | `X` | `K` | East (`A` / `Circle`) or North (`X` / `Triangle`) |
-| **Select** | `Backspace` | `Right Shift` | Select / Back / Share |
-| **Start** | `Enter` | `Return` | Start / Options |
+| NES Button | Keyboard | Gamepad |
+|:----------:|:--------:|:-------:|
+| **D-Pad** | `Arrows` / `W` `A` `S` `D` | D-Pad |
+| **B** *(Run / Attack)* | `Z` / `J` | South (`A` Xbox / `B` 8BitDo / `Cross`) or West (`X` Xbox / `Y` 8BitDo / `Square`) |
+| **A** *(Jump / Confirm)* | `X` / `K` | East (`B` Xbox / `A` 8BitDo / `Circle`) or North (`Y` Xbox / `X` 8BitDo / `Triangle`) |
+| **Select** | `Backspace` / `Right Shift` | Select / Back / Share |
+| **Start** | `Enter` / `Return` | Start / Options |
 
 For two-player games, plugging in a second controller assigns it to Player 2 automatically. If you want to play two-player with one person on the keyboard and the other on a single gamepad—or swap which controller belongs to whom—press `F6`. The game will pause and show a small overlay where you can assign ports with the directional keys.
 
@@ -62,7 +62,7 @@ For two-player games, plugging in a second controller assigns it to Player 2 aut
 | `F5` / `F8` | Save state / Load state |
 | `F6` | Controller assignment menu |
 | `F12` | Save screenshot (`~/Pictures/Dustblow`) |
-| `F2` / `Ctrl+R` | Reset console |
+| `F2` / `Ctrl+R` / `Cmd+R` | Reset console |
 | `Esc` | Quit |
 
 ## Saves and screenshots
@@ -73,7 +73,7 @@ All save files and snapshots are kept inside `~/.dustblow` (or the path set in `
 
 ## Building and running
 
-You only need a standard Go toolchain and a C compiler (required by [Ebitengine](https://ebitengine.org/) for native windowing and audio):
+You only need a standard Go toolchain (Go 1.27+):
 
 ```bash
 git clone https://github.com/aoliveti/dustblow.git

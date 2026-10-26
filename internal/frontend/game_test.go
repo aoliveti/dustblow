@@ -7,9 +7,9 @@ package frontend_test
 import (
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/cartridge"
-	"github.com/dustblow/dustblow/internal/console"
-	"github.com/dustblow/dustblow/internal/frontend"
+	"github.com/aoliveti/dustblow/internal/cartridge"
+	"github.com/aoliveti/dustblow/internal/console"
+	"github.com/aoliveti/dustblow/internal/frontend"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

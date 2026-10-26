@@ -7,10 +7,10 @@ package console_test
 import (
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/cartridge"
-	"github.com/dustblow/dustblow/internal/console"
-	"github.com/dustblow/dustblow/internal/cpu"
-	"github.com/dustblow/dustblow/internal/joypad"
+	"github.com/aoliveti/dustblow/internal/cartridge"
+	"github.com/aoliveti/dustblow/internal/console"
+	"github.com/aoliveti/dustblow/internal/cpu"
+	"github.com/aoliveti/dustblow/internal/joypad"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

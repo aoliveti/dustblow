@@ -7,7 +7,7 @@ package frontend
 import (
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/joypad"
+	"github.com/aoliveti/dustblow/internal/joypad"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 

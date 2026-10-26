@@ -7,7 +7,7 @@ package cpu_test
 import (
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/cpu"
+	"github.com/aoliveti/dustblow/internal/cpu"
 )
 
 func BenchmarkCPUStep(b *testing.B) {

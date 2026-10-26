@@ -7,7 +7,7 @@ package cartridge_test
 import (
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/cartridge"
+	"github.com/aoliveti/dustblow/internal/cartridge"
 )
 
 func BenchmarkMapper4ReadPRG(b *testing.B) {

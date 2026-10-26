@@ -7,7 +7,7 @@ package frontend
 import (
 	"image"
 
-	"github.com/dustblow/dustblow/internal/view"
+	"github.com/aoliveti/dustblow/internal/view"
 )
 
 const (

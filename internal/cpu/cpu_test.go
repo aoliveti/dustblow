@@ -7,7 +7,7 @@ package cpu_test
 import (
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/cpu"
+	"github.com/aoliveti/dustblow/internal/cpu"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
