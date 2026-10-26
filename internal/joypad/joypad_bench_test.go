@@ -7,7 +7,7 @@ package joypad_test
 import (
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/joypad"
+	"github.com/aoliveti/dustblow/internal/joypad"
 )
 
 func BenchmarkJoypad_Read(b *testing.B) {

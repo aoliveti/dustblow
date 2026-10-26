@@ -7,7 +7,7 @@ package bus_test
 import (
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/bus"
+	"github.com/aoliveti/dustblow/internal/bus"
 )
 
 func BenchmarkBus_ReadRAM(b *testing.B) {

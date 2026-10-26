@@ -7,7 +7,7 @@
 // scanline and dot rasterization, and 32-bit RGBA background frame rendering.
 package ppu
 
-import "github.com/dustblow/dustblow/internal/cartridge"
+import "github.com/aoliveti/dustblow/internal/cartridge"
 
 // Region represents the television broadcast standard governing PPU timing and scanlines.
 type Region byte

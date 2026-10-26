@@ -9,7 +9,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/cartridge"
+	"github.com/aoliveti/dustblow/internal/cartridge"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

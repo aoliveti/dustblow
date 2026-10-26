@@ -8,7 +8,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/joypad"
+	"github.com/aoliveti/dustblow/internal/joypad"
 	"github.com/stretchr/testify/assert"
 )
 

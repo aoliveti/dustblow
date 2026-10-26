@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/dustblow/dustblow/internal/frontend"
+	"github.com/aoliveti/dustblow/internal/frontend"
 )
 
 func main() {

@@ -7,8 +7,8 @@ package console_test
 import (
 	"testing"
 
-	"github.com/dustblow/dustblow/internal/console"
-	"github.com/dustblow/dustblow/internal/joypad"
+	"github.com/aoliveti/dustblow/internal/console"
+	"github.com/aoliveti/dustblow/internal/joypad"
 )
 
 func BenchmarkConsole_Step(b *testing.B) {

@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"image"
 
-	"github.com/dustblow/dustblow/internal/view"
+	"github.com/aoliveti/dustblow/internal/view"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
